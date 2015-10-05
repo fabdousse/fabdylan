@@ -8,7 +8,7 @@ class Main {
 
         Inventory inv = new Inventory();
         inv.Update();
-        
+
 
 
 
