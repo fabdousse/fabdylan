@@ -11,13 +11,20 @@ public class Inventory {
     private int mois;
     private int annee;
 
-    public Inventory(Item[] items) {
+    public Inventory(Item[] items,int jr, int month, int an) {
         super();
         this.items = items;
+        this.jour=jr;
+        this.mois=month;
+        this.annee=an;
     }
 
-    public Inventory() {
+    public Inventory(int jr, int month, int an) {
         super();
+        this.jour=jr;
+        this.mois=month;
+        this.annee=an;
+
         items = new Item[]{
                 new Item("+5 Dexterity Vest", 10, 20),
                 new Item("Aged Brie", 2, 0),
@@ -83,6 +90,25 @@ public class Inventory {
         return tab;
     }
 
+    public Item[] Add_item(Item[] item){
+        System.out.print("Veuillez entrer le nom de l'item que vous voulez ajouter: ");
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        System.out.print("Pendant combien de temps l'item doit-il se vendre : ");
+        Scanner sca = new Scanner(System.in);
+        String stri = sca.nextLine();
+        System.out.print("Quelle est la qualité initiale de l'item : ");
+        Scanner scan = new Scanner(System.in);
+        String strin = scan.nextLine();
+        Item ite = new Item(str,Integer.parseInt(stri),Integer.parseInt(strin));
+        item[item.length+1]=ite;
+        return item;
+
+    }
+
+    public Item[] Get_item(){
+        return this.items;
+    }
 
     public void updateQuality() {
         conjured=this.SetConjured();
