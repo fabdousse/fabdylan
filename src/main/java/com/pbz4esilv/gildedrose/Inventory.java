@@ -7,6 +7,7 @@ public class Inventory {
 
     private Item[] items;
     private boolean[] conjured;
+    private boolean is_conjured_or_not_ask;
     private int jour;
     private int mois;
     private int annee;
@@ -17,6 +18,7 @@ public class Inventory {
         this.jour=jr;
         this.mois=month;
         this.annee=an;
+        this.is_conjured_or_not_ask=false;
     }
 
     public Inventory(int jr, int month, int an) {
@@ -24,7 +26,7 @@ public class Inventory {
         this.jour=jr;
         this.mois=month;
         this.annee=an;
-
+        this.is_conjured_or_not_ask=false;
         items = new Item[]{
                 new Item("+5 Dexterity Vest", 10, 20),
                 new Item("Aged Brie", 2, 0),
@@ -33,7 +35,7 @@ public class Inventory {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
                 new Item("Conjured Mana Cake", 3, 6)
         };
-        conjured=new boolean[]{false,false,false,false,false,true};
+        this.conjured=new boolean[]{false,false,false,false,false,true};
 
     }
 
@@ -64,9 +66,11 @@ public class Inventory {
      double nb_de_update;
         Calendar now = Calendar.getInstance();
         Date nowdate=now.getTime();
+        System.out.println(nowdate+"\n");
         Calendar before = Calendar.getInstance();
         before.set(this.annee,this.mois,this.jour);
-        Date beforedate= now.getTime();
+        Date beforedate= before.getTime();
+        System.out.println(beforedate);
         nb_de_update=getDaysBetweenDates(beforedate,nowdate);
         this.mois=now.get(Calendar.MONTH);
         this.jour=now.get(Calendar.DAY_OF_MONTH);
@@ -101,7 +105,7 @@ public class Inventory {
         Scanner scan = new Scanner(System.in);
         String strin = scan.nextLine();
         Item ite = new Item(str,Integer.parseInt(stri),Integer.parseInt(strin));
-        item[item.length+1]=ite;
+        item[item.length]=ite;
         return item;
 
     }
@@ -111,7 +115,9 @@ public class Inventory {
     }
 
     public void updateQuality() {
-        conjured=this.SetConjured();
+        if(is_conjured_or_not_ask==false)
+            this.conjured=this.SetConjured();
+        this.is_conjured_or_not_ask=true;
         for (int i = 0; i < items.length; i++) {
 
             if (items[i].getName() != "Aged Brie"
