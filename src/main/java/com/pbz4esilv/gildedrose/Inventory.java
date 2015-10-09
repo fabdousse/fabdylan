@@ -41,9 +41,15 @@ public class Inventory {
 
     public void Update(){
         double d=nb_Update();
-        if(d!=0)
-        for (double i=0;i<d;i++)
-            this.updateQuality();
+
+        if(d!=0) {
+            for (double i = 0; i < d; i++) {
+                this.updateQuality();
+
+                System.out.println(i);
+            }
+            System.out.println("Nombre de update:" + (int)(d+1));
+        }
         else System.out.println("rien n'a change");
     }
 
@@ -66,10 +72,12 @@ public class Inventory {
      double nb_de_update;
         Calendar now = Calendar.getInstance();
         Date nowdate=now.getTime();
+        System.out.println("Date de creation de l'inventaire:");
         System.out.println(nowdate+"\n");
         Calendar before = Calendar.getInstance();
         before.set(this.annee,this.mois,this.jour);
         Date beforedate= before.getTime();
+        System.out.println("Date d'aujourd'hui:");
         System.out.println(beforedate);
         nb_de_update=getDaysBetweenDates(beforedate,nowdate);
         this.mois=now.get(Calendar.MONTH);
